@@ -12,6 +12,9 @@ public class Managers : MonoBehaviour
     public static InputManager Input => _inputManager;
     static InputManager _inputManager = new InputManager();
 
+    public static SpawnManager Spawn => _spawnManager;
+    static SpawnManager _spawnManager = new SpawnManager();
+
     void Awake()
     {
         if (_instance == null)
@@ -34,6 +37,8 @@ public class Managers : MonoBehaviour
     void InitManagers()
     {
         Grid.MakeGrid(10, 10);
+        Spawn.Init();
+        Spawn.SpawnRandomBlockOnGrid();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
