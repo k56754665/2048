@@ -15,6 +15,9 @@ public class Managers : MonoBehaviour
     public static SpawnManager Spawn => _spawnManager;
     static SpawnManager _spawnManager = new SpawnManager();
 
+    public static BoardManager Board => _boardManager;
+    static BoardManager _boardManager = new BoardManager();
+
     void Awake()
     {
         if (_instance == null)
@@ -38,17 +41,21 @@ public class Managers : MonoBehaviour
     {
         Grid.MakeGrid(10, 10);
         Spawn.Init();
-        Spawn.SpawnRandomBlockOnGrid();
+        Board.Init();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Board.Clear();
         InitManagers();
     }
 
     void OnDestroy()
     {
         if (_instance == this)
+        {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            Board.Clear();
+        }
     }
 }
